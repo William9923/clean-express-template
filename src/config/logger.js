@@ -2,7 +2,7 @@ const dir = require('./directory');
 const option = {
     file: {
         level: 'info',
-        filename: `${dir}/logs/apps.log`,
+        filename: `${dir}/../logs/apps.log`,
         handleExceptions: true,
         json: true,
         maxsize: 5242880, // 5MB

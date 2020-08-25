@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.get('/cool', (req, res, next) => {
+  res.render('index', {title: "You are so cool"});
+})
+
 module.exports = router;

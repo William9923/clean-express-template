@@ -5,11 +5,11 @@ const bodyParser = require('body-parser');
 const middlewares = require('../api/middlewares');
 const config = require('../config');
 
-module.exports = async ({app}) => {
+module.exports = async ({ app }) => {
     // status 
     app.get(config.api.prefix + '/status', (req, res) => {
         res.json({
-            "status" : "On"
+            "status": "On"
         });
     })
     // cors setup
@@ -18,8 +18,7 @@ module.exports = async ({app}) => {
     app.use(middlewares.loggingMiddleware);
     // body parser
     app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(express.urlencoded({ extended: false }));
-    app.use(express.json());
+    app.use(bodyParser.json());
     // cookie parser
     app.use(cookieParser());
 
