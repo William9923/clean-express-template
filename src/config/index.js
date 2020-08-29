@@ -12,11 +12,23 @@ if (envFound.error) {
     throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
 
+let databaseURL = "";
+
+switch(process.env.USE_DB) {
+    case "mongo" :
+        databaseURL = process.env.MONGO_URL;
+        break;
+    case "postgres" :
+        databaseURL = process.env.POSTGRES_URL;
+        break;
+}
+
 module.exports = {
     dir: dir,
     logger: logger,
     port: process.env.PORT,
-    databaseURL: process.env.DATABASE_URL,
+    databaseURL: databaseURL,
+    use: process.env.USE_DB,
     logs: {
         level: process.env.LOG_LEVEL || 'debug',
     },

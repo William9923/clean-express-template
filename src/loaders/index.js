@@ -1,7 +1,6 @@
 const expressLoader = require('./express');
 const viewLoader = require('./view');
 const handlerLoader = require('./handler');
-const dbLoader = require('./database');
 const config = require('../config');
 
 // object as parameter so that it pass by reference

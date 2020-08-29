@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon --exec npm start"
+    "dev": "nodemon --exec npm start",
+    "seeding": "node ./src/jobs/populate"
   },
   "dependencies": {
+    "async": "^3.2.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
@@ -16,7 +18,10 @@
     "http-errors": "~1.6.3",
     "mongoose": "^5.10.0",
     "morgan": "~1.9.1",
+    "pg": "^8.3.3",
+    "pg-hstore": "^2.3.3",
     "pug": "^3.0.0",
+    "sequelize": "^6.3.4",
     "winston": "^3.3.3"
   },
   "devDependencies": {

@@ -1,11 +1,13 @@
 const createError = require('http-errors');
 const config = require('../config');
 const indexRouter = require('../api/routes/index');
-const usersRouter = require('../api/routes/users');
+const booksRouter = require('../api/routes/books');
+const genresRouter = require('../api/routes/genres');
 
 module.exports = async ({ app }) => {
     app.use(config.api.prefix, indexRouter);
-    app.use(config.api.prefix + '/users', usersRouter);
+    app.use(config.api.prefix + '/books', booksRouter);
+    app.use(config.api.prefix + '/genres', genresRouter);
 
     app.use(function (req, res, next) {
         config.logger.warn("No Page Found!");
