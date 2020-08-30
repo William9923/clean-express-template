@@ -37,7 +37,7 @@ module.exports = async () => {
             summary: summary,
             isbn: isbn
         }
-        if (genre != false) bookdetail.genre = genre
+        if (genre != false) bookdetail.genres = genre
 
         var book = new Book(bookdetail);
         book.save(function (err) {
@@ -102,14 +102,18 @@ module.exports = async () => {
         createBooks,
     ],
         // Optional callback
-        function (err, results) {
+        async function (err, results) {
             if (err) {
                 console.log('FINAL ERR: ' + err);
             } else {
                 console.log("Enterring data this row successful");
             }
             // All done, disconnect from database
-            mongoose.connection.close();
+            await mongoose.connection.close().catch(error => {
+                console.error('Error while closing database', error);
+                process.exit(1);
+            });
+            console.log("Database connection closed");
         });
 }
 

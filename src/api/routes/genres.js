@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var controller = require('../controllers/genreController');
+var { GenreController } = require('../controllers/GenreController');
 
 /* GET home page. */
-router.get('/', controller.getAll);
+router.get('/', async (req, res, next) => await new GenreController().getAll(req, res, next));
 
-router.get('/:genreId', controller.get);
+router.get('/:id',  async (req, res, next) => await new GenreController().get(req, res, next));
 
-router.post('/', controller.post);
+// router.post('/', new GenreController().post);
 
-router.patch('/:genreId', controller.patch);
+// router.patch('/:genreId', new GenreController().update);
 
-router.delete('/:genreId', controller.delete);
+// router.delete('/:genreId', new GenreController().delete);
 
 module.exports = router;

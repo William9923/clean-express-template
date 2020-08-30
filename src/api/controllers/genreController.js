@@ -1,27 +1,41 @@
-const genres__GET = function (req, res) {
-    res.send("List View of Genre Web Page Template");
-};
+const GenreAppServices = require('../../service/GenreAppService');
+const BookAppServices = require('../../service/BookAppService');
 
-const genre__GET = function (req, res) {
-    res.send("Single Genre Web Page Template");
+class GenreController {
+    async get(req, res, next) {
+        let genre, books;
+
+        const callback = function (err, results) {
+            if (err) { return next(err); }
+            if (results.genre == null) { // No results.
+                var err = new Error('Genre not found');
+                err.status = 404;
+                return next(err);
+
+            }
+            res.render('genresingle', { title: 'Genre Detail', genre: results.genre, books: results.books });
+        }
+
+        try {
+            [genre, books] = await Promise.all([new GenreAppServices().get({ _id: req.params.id }, { populate: null, sort: null }), new BookAppServices().getAll({ 'genres': req.params.id }, { populate: null, sort: null })]);
+        } catch (err) {
+            callback(err, null);
+        }
+
+        callback(null, {
+            genre: genre,
+            books: books
+        });
+    }
+
+    async getAll(req, res, next) {
+        let data = await new GenreAppServices().getAll({}, { populate: null, sort: null });
+        return res.render("genrelists", {
+            title: "Genre",
+            items: data
+        });
+    }
 }
 
-const genre__POST = function(req, res) {
-    res.send("Creation router");
-}
+exports.GenreController = GenreController;
 
-const genre__DELETE = function(req, res) {
-    res.send("Deletion router");
-}
-
-const genre__PATCH = function(req, res) {
-    res.send("Patching router");
-}
-
-module.exports = {
-    "get" : genre__GET,
-    "getAll" : genres__GET,
-    "post" : genre__POST,
-    "patch" : genre__PATCH,
-    "delete" : genre__DELETE
-}

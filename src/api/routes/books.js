@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var controller = require('../controllers/bookController');
+var { BookController } = require('../controllers/BookController');
 
 /* GET home page. */
-router.get('/', controller.getAll);
+router.get('/', async (req, res, next) => await new BookController().getAll(req, res, next));
 
-router.get('/:bookId', controller.get);
+router.get('/:id',  async (req, res, next) => await new BookController().get(req, res, next));
 
-router.post('/', controller.post);
+// router.post('/', new BookController().post);
 
-router.patch('/:bookId', controller.patch);
+// router.patch('/:bookId', new BookController().update);
 
-router.delete('/:bookId', controller.delete);
+// router.delete('/:bookId', new BookController().delete);
 
 module.exports = router;

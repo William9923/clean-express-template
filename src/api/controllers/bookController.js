@@ -1,28 +1,20 @@
-const books__GET = function (req, res) {
-    res.send("List View of Book Web Page Template");
-};
+const BookAppServices = require('../../service/BookAppService');
+const book = require('../../infrastructure/orm/mongoose/models/book');
 
-const book__GET = function (req, res) {
-    res.send("Single Book Web Page Template");
+class BookController {
+
+    async getAll(req, res, next) {
+        let data = await new BookAppServices().getAll({}, { populate: 'genres' });
+        return res.render("booklists", {
+            title: "Book",
+            items: data
+        });
+    }
+
+    async get(req, res, next) {
+        let data = await new BookAppServices().get({_id: req.params.id}, { populate: 'genres'});
+        return res.render("booksingle", {book: data});
+    }
 }
 
-const book__POST = function(req, res) {
-    res.send("Creation router");
-}
-
-const book__DELETE = function(req, res) {
-    res.send("Deletion router");
-}
-
-const book__PATCH = function(req, res) {
-    res.send("Patching router");
-}
-
-module.exports = {
-    "get" : book__GET,
-    "getAll" : books__GET,
-    "post" : book__POST,
-    "patch" : book__PATCH,
-    "delete" : book__DELETE
-}
-
+exports.BookController = BookController;

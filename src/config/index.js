@@ -1,6 +1,5 @@
 const dotenv = require('dotenv');
 
-const logger = require('./logger');
 const dir = require('./directory');
 
 // Set the NODE_ENV to 'development' by default
@@ -25,7 +24,6 @@ switch(process.env.USE_DB) {
 
 module.exports = {
     dir: dir,
-    logger: logger,
     port: process.env.PORT,
     databaseURL: databaseURL,
     use: process.env.USE_DB,

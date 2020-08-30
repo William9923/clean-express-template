@@ -1,3 +1,5 @@
+const Book = require('../../../../domain/book');
+
 //Require Mongoose
 var mongoose = require('mongoose');
 
@@ -15,7 +17,9 @@ var BookSchema = new Schema({
 BookSchema
     .virtual('url')
     .get(function () {
-        return '/catalog/book/' + this._id;
+        return '/books/' + this._id;
     });
+
+BookSchema.loadClass(Book);
 
 module.exports = mongoose.model('Book', BookSchema);

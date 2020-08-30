@@ -1,4 +1,4 @@
-const dir = require('./directory');
+const dir = require('../../config/directory');
 const option = {
     file: {
         level: 'info',
@@ -26,4 +26,3 @@ const logger = winston.createLogger({
 });
 
 module.exports = logger;
-

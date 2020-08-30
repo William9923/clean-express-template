@@ -1,3 +1,4 @@
+const Genre = require('../../../../domain/genre');
 //Require Mongoose
 var mongoose = require('mongoose');
 
@@ -12,7 +13,9 @@ var GenreSchema = new Schema({
 GenreSchema
     .virtual('url')
     .get(function () {
-        return '/catalog/genre/' + this._id;
+        return '/genres/' + this._id;
     });
+
+GenreSchema.loadClass(Genre);
 
 module.exports = mongoose.model('Genre', GenreSchema);

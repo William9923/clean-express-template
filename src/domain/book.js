@@ -1,7 +1,6 @@
 'use strict';
 
-module.exports = class {
-
+class Book {
     constructor(id = null, title, summary, isbn, genres) {
         this.id = id;
         this.title = title;
@@ -9,5 +8,6 @@ module.exports = class {
         this.isbn = isbn;
         this.genres = genres;
     }
+}
 
-};
+module.exports = Book;
