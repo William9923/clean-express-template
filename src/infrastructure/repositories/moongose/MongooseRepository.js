@@ -44,6 +44,7 @@ class MongooseRepository extends Repository {
 
     async remove (document) {
         const reloadedDocument = await this.reload(document);
+        console.log("debug mongoose");
         return reloadedDocument.remove();
     }
 

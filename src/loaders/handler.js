@@ -4,11 +4,18 @@ const logger = require('../infrastructure/logger');
 const indexRouter = require('../api/routes/index');
 const booksRouter = require('../api/routes/books');
 const genresRouter = require('../api/routes/genres');
+const booksApiRouter = require('../api/routes/booksApi');
+const genresApiRouter = require('../api/routes/genresApi');
+const { ProcessError } = require('../api/errors/ProcessError');
 
 module.exports = async ({ app }) => {
     app.use('/', indexRouter);
     app.use('/books', booksRouter);
     app.use('/genres', genresRouter);
+
+    //api gateway 
+    app.use(config.api.prefix + '/books', booksApiRouter);
+    app.use(config.api.prefix + '/genres', genresApiRouter);
 
     // 404
     app.use(function (req, res, next) {
@@ -23,8 +30,12 @@ module.exports = async ({ app }) => {
 
         logger.error("Server Error! Please check the application !");
 
-        // render the error page
         res.status(err.status || 500);
+        if (err instanceof ProcessError) {
+            res.json(err.jsonify());
+        }
+
+        // render the error page
         res.render('error');
     });
 }

@@ -1,5 +1,4 @@
 const BookAppServices = require('../../service/BookAppService');
-const book = require('../../infrastructure/orm/mongoose/models/book');
 
 class BookController {
 
@@ -12,8 +11,8 @@ class BookController {
     }
 
     async get(req, res, next) {
-        let data = await new BookAppServices().get({_id: req.params.id}, { populate: 'genres'});
-        return res.render("booksingle", {book: data});
+        let data = await new BookAppServices().get({ _id: req.params.id }, { populate: 'genres' });
+        return res.render("booksingle", { book: data });
     }
 }
 
