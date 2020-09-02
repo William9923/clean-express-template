@@ -20,8 +20,11 @@ class AppService {
     }
 
     async delete(data) {
-        console.log("debug app service");
         return await this.repository.remove(data);
+    }
+
+    async update(document, body) {
+        return await this.repository.update(document, body);
     }
 }
 

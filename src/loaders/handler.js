@@ -31,6 +31,7 @@ module.exports = async ({ app }) => {
         logger.error("Server Error! Please check the application !");
 
         res.status(err.status || 500);
+        
         if (err instanceof ProcessError) {
             res.json(err.jsonify());
         }
